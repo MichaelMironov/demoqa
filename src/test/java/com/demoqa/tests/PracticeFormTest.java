@@ -50,11 +50,11 @@ public class PracticeFormTest extends BaseTest {
 
         Assertions.assertAll(
                 () -> $$(".table tr").shouldHave(size(11)),
-                () -> $(".table tr", 1).shouldHave(text("Student Name " + firstName + " " + lastName)),
-                () -> $(".table tr", 2).shouldHave(text("Student Email " + email)),
-                () -> $(".table tr", 3).shouldHave(text("Gender " + gender)),
-                () -> $(".table tr", 4).shouldHave(text("Mobile " + number)),
-                () -> $(".table tr", 9).shouldHave(text("Address " + address)),
+                () -> $(".table tr", 1).shouldHave(text(String.join(" ",firstName, lastName))),
+                () -> $(".table tr", 2).shouldHave(text(email)),
+                () -> $(".table tr", 3).shouldHave(text(gender)),
+                () -> $(".table tr", 4).shouldHave(text(number)),
+                () -> $(".table tr", 9).shouldHave(text(address)),
                 () -> expectedDate.equals(birthday)
                 //TODO etc
         );
