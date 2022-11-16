@@ -5,17 +5,14 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
 import java.util.Objects;
 
-@SuppressWarnings("RedundantSlf4jDefinition")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
 
     protected final Faker faker = new Faker();
 
     @BeforeAll
-    void setUp(){
+    static void setUp(){
         Configuration.browserSize = "1920x1080";
     }
 
