@@ -1,23 +1,20 @@
 package com.demoqa.tests;
 
+import com.demoqa.elements.SubmitTable;
 import com.demoqa.pages.RegistrationPage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import static com.codeborne.selenide.CollectionCondition.size;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class PracticeFormTest extends BaseTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PracticeFormTest.class);
-    private final SimpleDateFormat formatDate = new SimpleDateFormat("d MMMM yyyy", Locale.ENGLISH);
+    private final SimpleDateFormat formatDate = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
     private final RegistrationPage registrationPage = new RegistrationPage();
+    private final SubmitTable submitTable = new SubmitTable();
 
     private String firstName = faker.name().firstName();
     private String lastName = faker.name().lastName();
@@ -36,28 +33,27 @@ public class PracticeFormTest extends BaseTest {
                 .inputLastname(lastName)
                 .inputEmail(email)
                 .selectGender(gender)
+                .inputBirthday(birthday)
                 .inputPhone(number)
-                .selectHobbiesByTitle("Reading", "Sport")
+                .selectHobbiesByTitle("Reading", "Sports")
                 .inputSubjects("Computer Science", "Maths", "English")
                 .uploadPicture("test.jpeg")
                 .inputAddress(address)
                 .selectState("NCR")
                 .selectCity("Delhi")
-                .inputBirthday(birthday)
                 .submit();
 
-        String expectedDate = $(".table tr", 5).getText().replace(",", "");
 
-        Assertions.assertAll(
-                () -> $$(".table tr").shouldHave(size(11)),
-                () -> $(".table tr", 1).shouldHave(text(String.join(" ",firstName, lastName))),
-                () -> $(".table tr", 2).shouldHave(text(email)),
-                () -> $(".table tr", 3).shouldHave(text(gender)),
-                () -> $(".table tr", 4).shouldHave(text(number)),
-                () -> $(".table tr", 9).shouldHave(text(address)),
-                () -> expectedDate.equals(birthday)
-                //TODO etc
-        );
-        LOGGER.info("Студент {} {} зарегистрирован", firstName, lastName);
+        submitTable
+                .field("Student Name").expectedValue(firstName + " " + lastName)
+                .field("Gender").expectedValue(gender)
+                .field("Student Email").expectedValue(email)
+                .field("Mobile").expectedValue(number)
+                .field("Address").expectedValue(address)
+                .field("Subjects").expectedValue("Computer Science, Maths, English")
+                .field("Hobbies").expectedValue("Reading, Sports")
+                .field("State and City").expectedValue("NCR Delhi");
+
+        LOGGER.info(String.join(" ", "Студент", firstName, lastName, "успешно зарегистрирован."));
     }
 }
