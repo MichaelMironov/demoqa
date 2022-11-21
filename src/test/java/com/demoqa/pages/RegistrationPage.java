@@ -5,6 +5,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byTagName;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -42,7 +44,7 @@ public class RegistrationPage {
 
     public RegistrationPage selectHobbiesByTitle(String... titles) {
         for (String title : titles) {
-            hobbies.filter(Condition.text(title)).first().click();
+            hobbies.filter(text(title)).first().click();
         }
         return this;
     }
@@ -68,20 +70,15 @@ public class RegistrationPage {
     }
 
     public RegistrationPage selectState(String stateName) {
-        $("#react-select-3-input").setValue(stateName).pressEnter();
-        checkExisting(stateName);
+        $("#state").find(byTagName("input")).setValue(stateName).pressEnter();
         return this;
     }
 
     public RegistrationPage selectCity(String cityName) {
-        $("#react-select-4-input").setValue(cityName).pressEnter();
-        checkExisting(cityName);
+        if ($("#city").find(byTagName("input")).is(disabled))
+            throw new NoSuchElementException("Указан несуществующий штат!");
+        $("#city").find(byTagName("input")).setValue(cityName).pressEnter();
         return this;
-    }
-
-    private void checkExisting(String name) {
-        if ($(".css-26l3qy-menu").isDisplayed())
-            throw new NoSuchElementException(String.format("%s не существует", name));
     }
 
     public RegistrationPage selectGender(String gender) {
@@ -89,12 +86,12 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage open(){
+    public RegistrationPage open() {
         Selenide.open("https://demoqa.com/automation-practice-form");
         return this;
     }
 
-    public RegistrationPage submit(){
+    public RegistrationPage submit() {
         $("#submit").click();
         return this;
     }
