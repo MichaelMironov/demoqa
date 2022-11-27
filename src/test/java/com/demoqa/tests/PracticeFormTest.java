@@ -2,58 +2,48 @@ package com.demoqa.tests;
 
 import com.demoqa.elements.SubmitTable;
 import com.demoqa.pages.RegistrationPage;
+import com.demoqa.utils.datagenerator.FakeUser;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 public class PracticeFormTest extends BaseTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PracticeFormTest.class);
-    private final SimpleDateFormat formatDate = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
     private final RegistrationPage registrationPage = new RegistrationPage();
     private final SubmitTable submitTable = new SubmitTable();
-
-    private String firstName = faker.name().firstName();
-    private String lastName = faker.name().lastName();
-    private String email = faker.internet().safeEmailAddress();
-    private String number = String.valueOf(faker.numerify("##########"));
-    private String birthday = formatDate.format(faker.date().birthday());
-    private String address = faker.address().fullAddress();
-    private String gender = "Female";
 
 
     @Test
     void registrationTest() {
+
         registrationPage
                 .open()
-                .inputName(firstName)
-                .inputLastname(lastName)
-                .inputEmail(email)
-                .selectGender(gender)
-                .inputBirthday(birthday)
-                .inputPhone(number)
-                .selectHobbiesByTitle("Reading", "Sports")
-                .inputSubjects("Computer Science", "Maths", "English")
-                .uploadPicture("test.jpeg")
-                .inputAddress(address)
-                .selectState("NCR")
-                .selectCity("Delhi")
+                .inputName(FakeUser.NAME)
+                .inputLastname(FakeUser.SURNAME)
+                .inputEmail(FakeUser.MAIL)
+                .selectGender(FakeUser.GENDER)
+                .inputBirthday(FakeUser.DATE)
+                .inputPhone(FakeUser.PHONE_NUMBER)
+                .selectHobbiesByTitle(FakeUser.HOBBIES)
+                .uploadPicture(FakeUser.IMG_JPEG)
+                .inputAddress(FakeUser.ADDRESS)
+                .selectState(FakeUser.STATE)
+                .selectCity(FakeUser.CITY)
+                .inputSubjects(FakeUser.SUBJECTS)
                 .submit();
 
 
         submitTable
-                .field("Student Name").expectedValue(firstName + " " + lastName)
-                .field("Gender").expectedValue(gender)
-                .field("Student Email").expectedValue(email)
-                .field("Mobile").expectedValue(number)
-                .field("Address").expectedValue(address)
-                .field("Subjects").expectedValue("Computer Science, Maths, English")
-                .field("Hobbies").expectedValue("Reading, Sports")
-                .field("State and City").expectedValue("NCR Delhi");
+                .field("Student Name").expectedValue(FakeUser.NAME + " " + FakeUser.SURNAME)
+                .field("Gender").expectedValue(FakeUser.GENDER)
+                .field("Student Email").expectedValue(FakeUser.MAIL)
+                .field("Mobile").expectedValue(FakeUser.PHONE_NUMBER)
+                .field("Address").expectedValue(FakeUser.ADDRESS)
+                .field("Subjects").expectedValue(FakeUser.SUBJECTS)
+                .field("Hobbies").expectedValue(FakeUser.HOBBIES)
+                .field("State and City").expectedValue(FakeUser.STATE + " " + FakeUser.CITY);
 
-        LOGGER.info(String.join(" ", "Студент", firstName, lastName, "успешно зарегистрирован."));
+        LOGGER.info(String.join(" ", "Студент", FakeUser.NAME, FakeUser.SURNAME, "успешно зарегистрирован."));
     }
 }
