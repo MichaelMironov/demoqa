@@ -1,14 +1,17 @@
 package com.demoqa.pages;
 
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.interactions.Actions;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.disabled;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byTagName;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$x;
 
 
 public class RegistrationPage {
@@ -42,19 +45,18 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage selectHobbiesByTitle(String... titles) {
-        for (String title : titles) {
+    public RegistrationPage selectHobbiesByTitle(String titles) {
+        String [] temp = titles.replaceAll(",","").split(" ");
+        for (String title : temp) {
             hobbies.filter(text(title)).first().click();
         }
         return this;
     }
 
-    public RegistrationPage inputSubjects(String... subject) {
+    public RegistrationPage inputSubjects(String[] subject) {
         subjects.click();
-        Actions actions = new Actions(WebDriverRunner.getWebDriver());
         for (String s : subject) {
-            actions.sendKeys(s).perform();
-            actions.sendKeys(Keys.ENTER).perform();
+            Selenide.actions().sendKeys(s).pause(200).sendKeys(Keys.ENTER).perform();
         }
         return this;
     }
@@ -102,7 +104,7 @@ public class RegistrationPage {
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(arr[1]);
         $(".react-datepicker__year-select").selectOption(arr[2]);
-        $(byText(arr[0])).click();
+        $(".react-datepicker__day--0" + arr[0]).click();
         return this;
     }
 }
