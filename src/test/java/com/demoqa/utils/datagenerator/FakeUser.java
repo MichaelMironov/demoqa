@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 
 public class FakeUser {
 
-    public static final Faker faker = new Faker();
+    private static final Faker faker = new Faker();
     public static final String NAME = faker.name().firstName();
     public static final String SURNAME = faker.name().lastName();
     public static final String MAIL = faker.internet().safeEmailAddress();
@@ -59,7 +59,10 @@ public class FakeUser {
         }
 
     }
-
+    /**
+     *
+     * @return random array of subjects
+     */
     private static String[] getSubjects(){
 
         List<String> list = asList("Maths", "English", "Computer Science", "Chemistry", "Physics", "Social Studies", "Biology", "Hindi", "Economics", "Accounting", "Arts", "Commerce");
