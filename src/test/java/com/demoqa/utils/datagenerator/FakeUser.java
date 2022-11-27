@@ -62,7 +62,7 @@ public class FakeUser {
 
     private static String[] getSubjects(){
 
-        List<String> list = asList("Maths", "English", "Computer Science", "Chemistry", "Physics", "Social", "Biology", "Hindi", "Economics", "Accounting", "Arts", "Commerce");
+        List<String> list = asList("Maths", "English", "Computer Science", "Chemistry", "Physics", "Social Studies", "Biology", "Hindi", "Economics", "Accounting", "Arts", "Commerce");
         Collections.shuffle(list);
         int rndSize = (int) (Math.random() * list.size()+1);
         String[] temp = new String[rndSize];
