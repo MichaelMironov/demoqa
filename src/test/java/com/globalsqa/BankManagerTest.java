@@ -35,10 +35,10 @@ public class BankManagerTest {
     //Values
     @ParameterizedTest(name = "Проверка аккаунта Hermoine по номеру: {0}")
     @ValueSource(strings = {"1001", "1002", "1003"})
-    void accountNumberTest(String postcode) {
+    void accountNumberTest(String accountId) {
         new ManagerPage().open()
                 .goToCustomers()
-                .verifyAccountNumberByName("Hermoine", postcode);
+                .verifyAccountNumberByName("Hermoine", accountId);
 
     }
 
