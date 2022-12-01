@@ -16,7 +16,7 @@ public class BankManagerTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BankManagerTest.class);
 
     //Csv
-    @ParameterizedTest(name = "Добавления покупателя: {0} {1}")
+    @ParameterizedTest(name = "Добавление покупателя: {0} {1}")
     @CsvFileSource(resources = "/customers.csv")
     void addCustomerCsvTest(String firstname, String lastname, int postcode) {
 
