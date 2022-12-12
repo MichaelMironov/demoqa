@@ -1,6 +1,9 @@
 package com.globalsqa;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.globalsqa.pages.ManagerPage;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -14,6 +17,12 @@ import java.util.stream.Stream;
 public class BankManagerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankManagerTest.class);
+
+    @BeforeAll
+    static void setup(){
+
+        SelenideLogger.addListener("Selenide", new AllureSelenide());
+    }
 
     //Csv
     @ParameterizedTest(name = "Добавление покупателя: {0} {1}")

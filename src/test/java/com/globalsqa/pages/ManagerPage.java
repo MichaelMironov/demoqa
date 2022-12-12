@@ -1,6 +1,7 @@
 package com.globalsqa.pages;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,27 +17,32 @@ public class ManagerPage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ManagerPage.class);
 
+    @Step("Открытие страницы менеджера")
     public ManagerPage open() {
         Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager");
         webdriver().shouldHave(url("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager"), Duration.ofSeconds(15));
         return this;
     }
 
+    @Step("Кликнуть на кнопку [добавить клиента]")
     public ManagerPage clickToAddCustomer() {
         $("button[ng-click='addCust()']").click();
         return this;
     }
 
+    @Step("Ввести имя {firstname}")
     public ManagerPage inputFirstname(String firstname) {
         $("input[placeholder='First Name']").setValue(firstname);
         return this;
     }
 
+    @Step("Ввести фамилию {lastname}")
     public ManagerPage inputLastname(String lastname) {
         $("input[placeholder='Last Name']").setValue(lastname);
         return this;
     }
 
+    @Step("Ввести фамилию {postcode}")
     public ManagerPage inputPostcode(int postcode) {
         $("input[placeholder='Post Code']").setValue(String.valueOf(postcode));
         return this;
