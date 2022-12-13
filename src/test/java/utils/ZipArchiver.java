@@ -10,8 +10,8 @@ public class ZipArchiver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZipArchiver.class);
 
-    public static void compress(String... args) throws IOException {
-        FileOutputStream f = new FileOutputStream("test.zip");
+    public static void compress(String filename, String... args) throws IOException {
+        FileOutputStream f = new FileOutputStream("src/test/resources/" + filename + ".zip");
         CheckedOutputStream csum = new CheckedOutputStream(f, new Adler32());
         ZipOutputStream zos = new ZipOutputStream(csum);
         BufferedOutputStream out = new BufferedOutputStream(zos);
