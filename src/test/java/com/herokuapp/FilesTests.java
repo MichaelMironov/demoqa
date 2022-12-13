@@ -4,8 +4,12 @@ import com.codeborne.pdftest.PDF;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.DownloadOptions;
 import com.codeborne.xlstest.XLS;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
@@ -16,6 +20,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -39,6 +45,26 @@ public class FilesTests {
     static void setup() {
         Configuration.headless = true;
         downloadsFolder = "src/test/resources";
+    }
+
+    @Test
+    void jacksonTest() throws IOException {
+
+        byte[] json = Files.readAllBytes(Paths.get("src/test/resources/JSON-file-with-multiple-records.json"));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Users user = objectMapper.readValue(json, Users.class);
+
+        Users.User expected = new Users.User();
+
+        expected.setUserId(1);
+        expected.setFirstName("Krish");
+        expected.setLastName("Lee");
+        expected.setPhoneNumber("123456");
+        expected.setEmailAddress("krish.lee@learningcontainer.com");
+
+        assertThat(user.getUsers().get(0)).isEqualTo(expected);
     }
 
     @Test
