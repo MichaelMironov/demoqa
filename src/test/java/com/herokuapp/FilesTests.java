@@ -54,17 +54,20 @@ public class FilesTests {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Users user = objectMapper.readValue(json, Users.class);
+        Users users = objectMapper.readValue(json, Users.class);
+        Users.User actualFirstUser = users.getUsers().get(0);
 
-        Users.User expected = new Users.User();
+        Users.User expectedFirstUser = new Users.User();
 
-        expected.setUserId(1);
-        expected.setFirstName("Krish");
-        expected.setLastName("Lee");
-        expected.setPhoneNumber("123456");
-        expected.setEmailAddress("krish.lee@learningcontainer.com");
+        expectedFirstUser.setUserId(1);
+        expectedFirstUser.setFirstName("Krish");
+        expectedFirstUser.setLastName("Lee");
+        expectedFirstUser.setPhoneNumber("123456");
+        expectedFirstUser.setEmailAddress("krish.lee@learningcontainer.com");
 
-        assertThat(user.getUsers().get(0)).isEqualTo(expected);
+        log.info("\nexpected user: {}\nactual user: {}", expectedFirstUser, actualFirstUser);
+
+        assertThat(expectedFirstUser).isEqualTo(actualFirstUser);
     }
 
     @Test
