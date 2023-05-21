@@ -1,14 +1,14 @@
 plugins {
     id 'java-library'
-    id 'io.qameta.allure' version '2.8.1'
+    id 'io.qameta.allure' version '2.11.2'
     id "io.freefair.lombok" version "6.4.2"
 }
 
 group 'com.demoqa'
 version '1.0-SNAPSHOT'
 
-def allureVersion = '2.14.0',
-    selenideVersion = '6.10.1',
+def allureVersion = '2.20.1',
+    selenideVersion = '6.14.1',
     junitVersion = '5.9.0'
 
 tasks.withType(JavaCompile) {
@@ -25,27 +25,30 @@ allure {
     version = allureVersion
     autoconfigure = true
     aspectjweaver = true
-    configuration = "testImplementation"
     useJUnit5 {
         version = allureVersion
     }
 }
 
 dependencies {
+
+    implementation('io.qameta.allure:allure-junit5:2.21.0') {
+        exclude group: "org.junit.platform"
+        exclude group: "org.junit.jupiter"
+    }
     testImplementation(
-            'org.aspectj:aspectjweaver:1.9.9.1',
+            'org.aspectj:aspectjweaver:1.9.19',
             "com.codeborne:selenide:$selenideVersion",
-            "io.qameta.allure:allure-selenide:$allureVersion",
+            'io.qameta.allure:allure-selenide:2.21.0',
             'io.rest-assured:rest-assured:5.3.0',
-            "io.qameta.allure:allure-rest-assured:$allureVersion",
             "org.aeonbits.owner:owner:1.0.12",
             "com.github.javafaker:javafaker:1.0.2",
-            'org.assertj:assertj-core:3.23.1',
-            'com.google.code.gson:gson:2.10',
+            'org.assertj:assertj-core:3.24.2',
+            'com.google.code.gson:gson:2.10.1',
             'com.opencsv:opencsv:5.7.1',
             'org.slf4j:slf4j-simple:2.0.5',
             'commons-io:commons-io:2.11.0',
-            'org.assertj:assertj-core:3.23.1',
+            'org.assertj:assertj-core:3.24.2',
             'com.codeborne:pdf-test:1.5.0',
             'com.codeborne:xls-test:1.4.3',
             testRuntimeOnly("org.junit.jupiter:junit-jupiter:$junitVersion")
