@@ -2,7 +2,7 @@ package com.demoqa.tests;
 
 import com.demoqa.elements.SubmitTable;
 import com.demoqa.pages.RegistrationPage;
-import com.demoqa.utils.datagenerator.FakeUser;
+import utils.FakeUser;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

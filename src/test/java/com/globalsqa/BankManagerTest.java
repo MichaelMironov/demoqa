@@ -19,9 +19,8 @@ public class BankManagerTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BankManagerTest.class);
 
     @BeforeAll
-    static void setup(){
-
-        SelenideLogger.addListener("Selenide", new AllureSelenide());
+    static void setup() {
+//        SelenideLogger.addListener("Selenide", new AllureSelenide());
     }
 
     //Csv

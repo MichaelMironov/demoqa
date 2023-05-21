@@ -1,4 +1,4 @@
-package com.demoqa.utils.datagenerator;
+package utils;
 
 import com.github.javafaker.Faker;
 

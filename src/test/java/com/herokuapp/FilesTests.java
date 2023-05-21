@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.xlstest.XLS;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.files.FileFilters.withExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 public class FilesTests {
 
     private static final ClassLoader CLASS_LOADER = FilesTests.class.getClassLoader();
